@@ -11,3 +11,18 @@ class Smartphones(models.Model):
 
     def __str__(self):
         return self.name
+
+    def to_dict(self):
+        """
+        Convert model to dictionary
+        """
+        return {
+            'id': self.id,
+            'price': self.price,
+            'url': self.img_url,
+            'color': self.color,
+            'ram': self.ram,
+            'memory': self.memory,
+            'name': self.name,
+            'model': self.model
+        }

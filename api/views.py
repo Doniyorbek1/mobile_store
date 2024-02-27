@@ -34,15 +34,6 @@ def get_products(request: HttpRequest) -> JsonResponse:
     # Create list of products
     data = []
     for product in products:
-        data.append({
-            'id': product.id,
-            'price': product.price,
-            'img_url': product.img_url,
-            'color': product.color,
-            'ram': product.ram,
-            'memory': product.memory,
-            'name': product.name,
-            'model': product.model
-        })
+        data.append(product.to_dict())
     # Return response
     return JsonResponse(data, safe=False)
