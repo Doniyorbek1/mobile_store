@@ -26,3 +26,23 @@ def add_product(reqeust: HttpRequest) -> JsonResponse:
         # Return response
     return JsonResponse({'status': 'ok'})
    
+
+def get_products(request: HttpRequest) -> JsonResponse:
+    """get all products from database"""
+    # Get all products from database
+    products = Smartphones.objects.all()
+    # Create list of products
+    data = []
+    for product in products:
+        data.append({
+            'id': product.id,
+            'price': product.price,
+            'img_url': product.img_url,
+            'color': product.color,
+            'ram': product.ram,
+            'memory': product.memory,
+            'name': product.name,
+            'model': product.model
+        })
+    # Return response
+    return JsonResponse(data, safe=False)
