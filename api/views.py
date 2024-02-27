@@ -37,3 +37,14 @@ def get_products(request: HttpRequest) -> JsonResponse:
         data.append(product.to_dict())
     # Return response
     return JsonResponse(data, safe=False)
+
+
+def get_product(request: HttpRequest, product_id: int) -> JsonResponse:
+    """get product by id"""
+    # Get product by id
+    try:
+        product = Smartphones.objects.get(id=product_id)
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'Product not found'}, status=404)
+    # Return response
+    return JsonResponse(product.to_dict())
