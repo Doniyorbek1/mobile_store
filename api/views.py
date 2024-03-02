@@ -39,11 +39,11 @@ def get_products(request: HttpRequest) -> JsonResponse:
     return JsonResponse(data, safe=False)
 
 
-def get_product(request: HttpRequest, product_id: int) -> JsonResponse:
+def get_product_id(request: HttpRequest, pk: int) -> JsonResponse:
     """get product by id"""
     # Get product by id
     try:
-        product = Smartphones.objects.get(id=product_id)
+        product = Smartphones.objects.get(id=pk)
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Product not found'}, status=404)
     # Return response
