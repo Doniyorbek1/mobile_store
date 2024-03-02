@@ -19,7 +19,7 @@ def add_product(reqeust: HttpRequest) -> JsonResponse:
             ram=data['ram'],
             memory=data['memory'],
             name=data['name'],
-            model=data['model']
+            model=data['company']
         )
         # Save product to database
         product.save()
