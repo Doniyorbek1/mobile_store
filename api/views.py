@@ -1,5 +1,6 @@
 from django.http import HttpRequest, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.lookups import IContains
 import json
 from .models import Smartphones
 
@@ -48,3 +49,28 @@ def get_product_id(request: HttpRequest, pk: int) -> JsonResponse:
         return JsonResponse({'error': 'Product not found'}, status=404)
     # Return response
     return JsonResponse(product.to_dict())
+
+def get_name(request: HttpRequest, name: str) -> JsonResponse:
+    """get product by name"""
+    # Get product by name
+    try:
+        product = Smartphones.objects.filter(name__contains = name)
+        data = []
+        for i in product:
+            data.append(i.to_dict())
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'Product not found'}, status=404)
+    # Return response
+    return JsonResponse(data=data, safe=False )
+# get color 
+def get_color(request: HttpRequest, color: str) -> JsonResponse:
+    """get product by color """
+    try:
+        product =  Smartphones.objects.filter(color__contains = color)
+        data = []
+        for i in product:
+            data.append(i.to_dict())
+    except:
+        return JsonResponse({"data":"not found"})
+
+    return JsonResponse(data=data, safe=False)
