@@ -105,3 +105,12 @@ def lst_models(request: HttpRequest) -> JsonResponse:
         return JsonResponse({"data":"not found"})
     return JsonResponse(data=data, safe=False)
         
+# delete product by id
+def delete_product(request: HttpRequest, pk : int)-> JsonResponse:
+    if request.method =="GET":
+        product =  Smartphones.objects.get(id = pk)
+        product.delete()
+        
+        return JsonResponse({"product": "deleted product"})
+    else:
+        return JsonResponse({"status":"error"})
