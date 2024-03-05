@@ -1,6 +1,5 @@
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest, JsonResponse, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models.lookups import IContains
 import json
 from .models import Smartphones
 
@@ -74,3 +73,18 @@ def get_color(request: HttpRequest, color: str) -> JsonResponse:
         return JsonResponse({"data":"not found"})
 
     return JsonResponse(data=data, safe=False)
+
+# get model
+def lst_models(request: HttpRequest) -> JsonResponse:
+    """get all models"""
+    try:
+        product = Smartphones.objects.all()
+        data = []
+        for i in product:
+            data.append(i.to_dict()['model'])
+        data = list(set(data))
+    except:
+        return JsonResponse({"data":"not found"})
+    return JsonResponse(data=data, safe=False)
+        
+    
