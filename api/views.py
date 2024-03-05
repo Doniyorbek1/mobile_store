@@ -25,6 +25,24 @@ def add_product(reqeust: HttpRequest) -> JsonResponse:
         product.save()
         # Return response
     return JsonResponse({'status': 'ok'})
+
+# update product 
+def update_parduct(request: HttpRequest, pk: int) -> JsonResponse:
+    """update product by id"""
+    if request.method == "POST":
+        product = Smartphones.objects.get(id=pk)
+        data = json.loads(request.body)
+        product.price = data.get('price', product.price)
+        product.img_url = data.get('img_url', product.img_url)
+        product.color = data.get('color', product.color)
+        product.ram = data.get('ram', product.ram)
+        product.memory = data.get('memory', product.memory)
+        product.name = data.get('name', product.name)
+        product.model = data.get('company', product.model)
+        product.save()
+        return JsonResponse({'status': 'ok'})
+    else:
+        return JsonResponse({'status': 'error'})
    
 
 def get_products(request: HttpRequest) -> JsonResponse:
@@ -87,4 +105,3 @@ def lst_models(request: HttpRequest) -> JsonResponse:
         return JsonResponse({"data":"not found"})
     return JsonResponse(data=data, safe=False)
         
-    
