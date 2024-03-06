@@ -71,7 +71,7 @@ def get_name(request: HttpRequest, name: str) -> JsonResponse:
     """get product by name"""
     # Get product by name
     try:
-        product = Smartphones.objects.filter(name__contains = name)
+        product = Smartphones.objects.filter(model__contains = name)
         data = []
         for i in product:
             data.append(i.to_dict())
